@@ -79,11 +79,11 @@ public class FitnessMetrics {
         this.sleepHours = sleepHours;
     }
 
-    public int getWaterTaken() {
+    public int getWaterConsumption() {
         return waterConsumption;
     }
 
-    public void setWaterTaken(int waterTaken) {
+    public void setWaterConsumption(int waterTaken) {
         this.waterConsumption = waterConsumption;
     }
 
