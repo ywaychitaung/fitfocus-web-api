@@ -20,8 +20,8 @@ public class FitnessMetrics {
     @Column(name = "sleep_hours")
     private int sleepHours; // in Hours
 
-    @Column(name = "water_taken")
-    private int waterTaken; // in MilliLiters
+    @Column(name = "water_consumption")
+    private int waterConsumption; // in MilliLiters
 
     @Column(name = "meditation_duration")
     private int meditationDuration; // in Hours
@@ -34,12 +34,12 @@ public class FitnessMetrics {
     public FitnessMetrics() {}
 
     // Constructor Overloading
-    public FitnessMetrics(int fitnessMetricsId, double weight, double height, int sleepHours, int waterTaken, int meditationDuration, User user) {
+    public FitnessMetrics(int fitnessMetricsId, double weight, double height, int sleepHours, int waterConsumption, int meditationDuration, User user) {
         this.fitnessMetricsId = fitnessMetricsId;
         this.weight = weight;
         this.height = height;
         this.sleepHours = sleepHours;
-        this.waterTaken = waterTaken;
+        this.waterConsumption = waterConsumption;
         this.meditationDuration = meditationDuration;
         this.user = user;
     }
@@ -78,11 +78,11 @@ public class FitnessMetrics {
     }
 
     public int getWaterTaken() {
-        return waterTaken;
+        return waterConsumption;
     }
 
     public void setWaterTaken(int waterTaken) {
-        this.waterTaken = waterTaken;
+        this.waterConsumption = waterConsumption;
     }
 
     public int getMeditationDuration() {
