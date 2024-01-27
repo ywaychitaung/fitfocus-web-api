@@ -1,5 +1,6 @@
 package com.team10nus.web_api.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -28,6 +29,7 @@ public class User {
 
     // Relationships
     @OneToOne(mappedBy = "user")
+    @JsonIgnore
     public FitnessMetrics fitnessMetrics;
 
     // Empty Constructor

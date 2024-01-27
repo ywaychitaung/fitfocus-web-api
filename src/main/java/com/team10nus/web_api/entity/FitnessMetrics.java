@@ -1,5 +1,6 @@
 package com.team10nus.web_api.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -28,6 +29,7 @@ public class FitnessMetrics {
 
     // Relationships
     @OneToOne
+    @JsonManagedReference
     private User user;
 
     // Empty Constructor
