@@ -4,8 +4,7 @@
 
 Here are some screenshots demonstrating the key features of Fit Focus:
 
-API:
 
-|         Dashboard Screen         |                    Food Screen                     |
-|:--------------------------------:|:--------------------------------------------------:|
-| ![Login](/screenshots/Login.png) | ![Food Screen](/screenshots/Fitness%20Metrics.png) |
+|              Login API               |                    Fitness Metrics API                     |
+|:------------------------------------:|:----------------------------------------------------------:|
+| ![Login API](/screenshots/Login.png) | ![Fitness Metrics API](/screenshots/Fitness%20Metrics.png) |
