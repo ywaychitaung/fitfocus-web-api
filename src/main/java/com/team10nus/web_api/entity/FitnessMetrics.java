@@ -16,13 +16,13 @@ public class FitnessMetrics {
     private double weight; // in Kilograms
 
     @Column(name = "height")
-    private double height; // in Centimeters
+    private double height; // in Meters
 
     @Column(name = "sleep_hours")
     private int sleepHours; // in Hours
 
     @Column(name = "water_consumption")
-    private int waterConsumption; // in MilliLiters
+    private int waterConsumption; // in Liters
 
     @Column(name = "meditation_duration")
     private int meditationDuration; // in Hours
@@ -51,7 +51,7 @@ public class FitnessMetrics {
         return fitnessMetricsId;
     }
 
-    public void setFitnessMetrics(int fitnessMetrics) {
+    public void setFitnessMetrics(int fitnessMetricsId) {
         this.fitnessMetricsId = fitnessMetricsId;
     }
 
@@ -83,7 +83,7 @@ public class FitnessMetrics {
         return waterConsumption;
     }
 
-    public void setWaterConsumption(int waterTaken) {
+    public void setWaterConsumption (int waterTaken) {
         this.waterConsumption = waterConsumption;
     }
 
