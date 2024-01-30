@@ -13,7 +13,7 @@ public class FitnessMetricsServiceImpl implements FitnessMetricsService {
     private FitnessMetricsRepository fitnessMetricsRepository;
 
     @Override
-    public Optional<FitnessMetrics> getFitnessMetrics(Integer id) {
+    public FitnessMetrics getFitnessMetrics(Integer id) {
         return fitnessMetricsRepository.findByFitnessMetricsId(id);
     }
 }

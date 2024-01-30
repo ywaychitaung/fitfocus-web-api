@@ -15,24 +15,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean authenticate(String email, String password) {
-        Optional<User> user = userRepository.findByEmail(email);
-        if(user != null && password.equals(user.get().getPassword()))
-        {
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean register(User user) {
-
-        if (userRepository.findByEmail(user.getEmail())!=null)
-        {
-
-            return false;
-        }
-    
-        User savedUser = userRepository.save(user);
-        return savedUser !=null;
+        User user = userRepository.findByEmail(email);
+        return user != null && password.equals(user.getPassword());
     }
 }

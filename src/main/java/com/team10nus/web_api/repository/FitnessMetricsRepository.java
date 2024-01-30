@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface FitnessMetricsRepository extends JpaRepository<FitnessMetrics, Integer> {
-    Optional<FitnessMetrics> findByFitnessMetricsId(Integer id);
+    FitnessMetrics findByFitnessMetricsId(Integer id);
 }
