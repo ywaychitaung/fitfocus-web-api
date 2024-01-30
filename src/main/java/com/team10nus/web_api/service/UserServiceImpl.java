@@ -18,4 +18,15 @@ public class UserServiceImpl implements UserService {
         User user = userRepository.findByEmail(email);
         return user != null && password.equals(user.getPassword());
     }
+
+    public User store(User user) {
+        User newUser = new User();
+        newUser.setUsername(user.getUsername());
+        newUser.setEmail(user.getEmail());
+        newUser.setPassword(user.getPassword());
+        newUser.setFirstName(user.getFirstName());
+        newUser.setLastName(user.getLastName());
+
+        return userRepository.save(newUser);
+    }
 }
