@@ -27,7 +27,7 @@ public class AuthApiController {
     public ResponseEntity<?> register(@RequestBody User user) {
         try {
             User newUser = userService.store(user);
-            return ResponseEntity.ok("User registered successfully with ID: " + newUser.getUserId());
+            return ResponseEntity.ok("New user: " + newUser);
         } catch (Exception e) {
             // Exception handling can be more specific based on what exceptions your service throws
             return ResponseEntity.badRequest().body("Registration failed: " + e.getMessage());
