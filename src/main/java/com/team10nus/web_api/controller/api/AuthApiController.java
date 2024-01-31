@@ -1,7 +1,9 @@
 package com.team10nus.web_api.controller.api;
 
+import com.team10nus.web_api.dto.LoginRequest;
 import com.team10nus.web_api.entity.User;
 import com.team10nus.web_api.service.UserService;
+import com.team10nus.web_api.util.JsonUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +16,22 @@ public class AuthApiController {
     private UserService userService;
 
     @PostMapping("/auth/login")
-    public ResponseEntity<?> login(@RequestParam String email, @RequestParam String password) {
-        boolean isAuthenticated = userService.authenticate(email, password);
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+        // Authenticate the user
+        boolean isAuthenticated = userService.authenticate(loginRequest.getEmail(), loginRequest.getPassword());
+
+        // Return the response
         if (isAuthenticated) {
-            return ResponseEntity.ok("Login successful");
+            // Get the user object
+            User user = userService.getUser(loginRequest.getEmail());
+
+            // Convert the user object to JSON string
+            String userJson = JsonUtil.convertObjectToJson(user);
+
+            // Return the JSON string as the response body
+            return ResponseEntity.ok(userJson);
         } else {
+            // Return the error message as the response body
             return ResponseEntity.status(401).body("Invalid credentials");
         }
     }
@@ -26,10 +39,16 @@ public class AuthApiController {
     @PostMapping("/auth/register")
     public ResponseEntity<?> register(@RequestBody User user) {
         try {
+            // Store the new user
             User newUser = userService.store(user);
-            return ResponseEntity.ok("New user: " + newUser);
+
+            // Convert the user object to JSON string
+            String userJson = JsonUtil.convertObjectToJson(newUser);
+
+            // Return the JSON string as the response body
+            return ResponseEntity.ok(userJson);
         } catch (Exception e) {
-            // Exception handling can be more specific based on what exceptions your service throws
+            // Return the error message as the response body
             return ResponseEntity.badRequest().body("Registration failed: " + e.getMessage());
         }
     }
