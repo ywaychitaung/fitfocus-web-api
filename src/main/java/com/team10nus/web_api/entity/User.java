@@ -32,6 +32,10 @@ public class User {
     @JsonIgnore
     public FitnessMetrics fitnessMetrics;
 
+
+    @OneToOne(mappedBy = "user")
+    @JsonIgnore
+    public Profile profile;
     // Empty Constructor
     public User() {}
 
