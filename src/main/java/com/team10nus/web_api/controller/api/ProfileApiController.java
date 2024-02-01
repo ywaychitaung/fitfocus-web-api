@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/users/profiles")
-public class ProfileController {
+public class ProfileApiController {
     private final ProfileService profileService;
 
     @Autowired
-    public ProfileController(ProfileService profileService) {
+    public ProfileApiController(ProfileService profileService) {
         this.profileService = profileService;
     }
 

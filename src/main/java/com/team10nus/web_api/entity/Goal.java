@@ -6,7 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class Goals {
+public class Goal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,10 +17,10 @@ public class Goals {
     private int weeklyWorkoutMinutes;
 
     // 构造函数
-    public Goals() {
+    public Goal() {
     }
 
-    public Goals(double startingWeight, double currentWeight, double goalWeight, double weeklyGoalGainLoss, int weeklyWorkoutMinutes) {
+    public Goal(double startingWeight, double currentWeight, double goalWeight, double weeklyGoalGainLoss, int weeklyWorkoutMinutes) {
         this.startingWeight = startingWeight;
         this.currentWeight = currentWeight;
         this.goalWeight = goalWeight;
