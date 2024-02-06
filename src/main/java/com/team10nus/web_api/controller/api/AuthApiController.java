@@ -23,7 +23,7 @@ public class AuthApiController {
         // Return the response
         if (isAuthenticated) {
             // Get the user object
-            User user = userService.getUser(loginRequest.getEmail());
+            User user = userService.getUserByEmail(loginRequest.getEmail());
 
             // Convert the user object to JSON string
             String userJson = JsonUtil.convertObjectToJson(user);

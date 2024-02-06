@@ -12,7 +12,12 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Override
-    public User getUser(String email) {
+    public User getUserById(int userId) {
+        return userRepository.findByUserId(userId);
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 

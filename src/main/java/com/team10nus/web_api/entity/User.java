@@ -3,6 +3,8 @@ package com.team10nus.web_api.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -27,10 +29,32 @@ public class User {
     @Column(name="password")
     private String password;
 
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+    // Lifecycle Hooks
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
+
     // Relationships
     @OneToOne(mappedBy = "user")
     @JsonIgnore
     public FitnessMetrics fitnessMetrics;
+
+    @OneToOne(mappedBy = "user")
+    @JsonIgnore
+    private Goal goal;
 
     // Empty Constructor
     public User() {}
@@ -40,8 +64,7 @@ public class User {
                 String firstName,
                 String lastName,
                 String username,
-                String password,
-                Integer roleId) {
+                String password) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -88,5 +111,29 @@ public class User {
 
     public void setFitnessMetrics(FitnessMetrics fitnessMetrics) {
         this.fitnessMetrics = fitnessMetrics;
+    }
+
+    public Goal getGoal() {
+        return goal;
+    }
+
+    public void setGoal(Goal goal) {
+        this.goal = goal;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

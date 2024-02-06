@@ -1,5 +1,6 @@
 package com.team10nus.web_api.service;
 
+import com.team10nus.web_api.dto.GoalRequest;
 import com.team10nus.web_api.entity.Goal;
 import com.team10nus.web_api.repository.GoalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,15 @@ public class GoalServiceImpl implements GoalService {
     @Override
     public Goal createGoals(Goal goals) {
         return goalsRepository.save(goals);
+    }
+
+    @Override
+    public Goal updateGoals(GoalRequest goalRequest) {
+        Goal goal = goalsRepository.findById(goalRequest.getId())
+                .orElseThrow(() -> new RuntimeException("Goals not found"));
+
+        goal.setGoalWeight(goalRequest.getGoalWeight());
+        return goalsRepository.save(goal);
     }
 }
 

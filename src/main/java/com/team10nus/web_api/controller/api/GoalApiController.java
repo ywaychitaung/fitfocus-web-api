@@ -1,5 +1,6 @@
 package com.team10nus.web_api.controller.api;
 
+import com.team10nus.web_api.dto.GoalRequest;
 import com.team10nus.web_api.entity.Goal;
 import com.team10nus.web_api.service.GoalService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,12 @@ public class GoalApiController {
     public ResponseEntity<Goal> storeGoals(@RequestBody Goal goal) {
         Goal newGoal = goalService.createGoals(goal);
         return new ResponseEntity<>(newGoal, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/update/{goalsId}")
+    public ResponseEntity<Goal> updateGoals(@RequestBody GoalRequest goalRequest) {
+        Goal goal = goalService.updateGoals(goalRequest);
+        return ResponseEntity.ok(goal);
     }
 }
 

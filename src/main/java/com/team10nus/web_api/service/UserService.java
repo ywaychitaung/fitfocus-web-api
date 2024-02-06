@@ -3,7 +3,8 @@ package com.team10nus.web_api.service;
 import com.team10nus.web_api.entity.User;
 
 public interface UserService {
-    User getUser(String email);
+    User getUserById(int userId);
+    User getUserByEmail(String email);
 
     boolean authenticate(String email, String password);
 

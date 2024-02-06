@@ -3,6 +3,8 @@ package com.team10nus.web_api.entity;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "fitness_metrics")
 public class FitnessMetrics {
@@ -27,6 +29,33 @@ public class FitnessMetrics {
     @Column(name = "meditation_duration")
     private int meditationDuration; // in Hours
 
+    @Column(name = "bmi")
+    private double bmi;
+
+    @Column(name = "food_calories_consumed")
+    private double foodCaloriesConsumed;
+
+    @Column(name = "exercise_calories_burned")
+    private double exerciseCaloriesBurned;
+
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+    // Lifecycle Hooks
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
+
     // Relationships
     @OneToOne
     @JsonManagedReference
@@ -36,13 +65,16 @@ public class FitnessMetrics {
     public FitnessMetrics() {}
 
     // Constructor Overloading
-    public FitnessMetrics(int fitnessMetricsId, double weight, double height, int sleepHours, int waterConsumption, int meditationDuration, User user) {
+    public FitnessMetrics(int fitnessMetricsId, double weight, double height, int sleepHours, int waterConsumption, int meditationDuration, double bmi, double foodCaloriesConsumed, double exerciseCaloriesBurned, User user) {
         this.fitnessMetricsId = fitnessMetricsId;
         this.weight = weight;
         this.height = height;
         this.sleepHours = sleepHours;
         this.waterConsumption = waterConsumption;
         this.meditationDuration = meditationDuration;
+        this.bmi = bmi;
+        this.foodCaloriesConsumed = foodCaloriesConsumed;
+        this.exerciseCaloriesBurned = exerciseCaloriesBurned;
         this.user = user;
     }
 
@@ -95,10 +127,50 @@ public class FitnessMetrics {
         this.meditationDuration = meditationDuration;
     }
 
+    public double getBmi() {
+        return bmi;
+    }
+
+    public void setBmi(double bmi) {
+        this.bmi = bmi;
+    }
+
+    public double getFoodCaloriesConsumed() {
+        return foodCaloriesConsumed;
+    }
+
+    public void setFoodCaloriesConsumed(double foodCaloriesConsumed) {
+        this.foodCaloriesConsumed = foodCaloriesConsumed;
+    }
+
+    public double getExerciseCaloriesBurned() {
+        return exerciseCaloriesBurned;
+    }
+
+    public void setExerciseCaloriesBurned(double exerciseCaloriesBurned) {
+        this.exerciseCaloriesBurned = exerciseCaloriesBurned;
+    }
+
     public User getUser() {
         return user;
     }
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }
