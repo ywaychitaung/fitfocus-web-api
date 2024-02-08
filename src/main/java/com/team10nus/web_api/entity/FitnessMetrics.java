@@ -115,7 +115,7 @@ public class FitnessMetrics {
         return waterConsumption;
     }
 
-    public void setWaterConsumption (int waterTaken) {
+    public void setWaterConsumption (int waterConsumption) {
         this.waterConsumption = waterConsumption;
     }
 
