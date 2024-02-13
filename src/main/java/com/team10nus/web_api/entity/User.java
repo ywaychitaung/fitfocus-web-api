@@ -58,6 +58,10 @@ public class User {
     @JsonIgnore
     private Goal goal;
 
+    @OneToOne(mappedBy = "user")
+    @JsonIgnore
+    public WeeklySleepData weeklySleepData;
+
     // Empty Constructor
     public User() {}
 
@@ -121,6 +125,14 @@ public class User {
 
     public void setGoal(Goal goal) {
         this.goal = goal;
+    }
+
+    public WeeklySleepData getWeeklySleepData() {
+        return weeklySleepData;
+    }
+
+    public void setWeeklySleepData(WeeklySleepData weeklySleepData) {
+        this.weeklySleepData = weeklySleepData;
     }
 
     public LocalDateTime getCreatedAt() {
