@@ -4,6 +4,7 @@ import com.team10nus.web_api.entity.User;
 import com.team10nus.web_api.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -26,8 +27,14 @@ public class UserServiceImpl implements UserService {
         // Find the user by email
         User user = userRepository.findByEmail(email);
 
-        // Check if the user exists and the password matches
-        return user != null && password.equals(user.getPassword());
+        String hashedPassword = user.getPassword();
+
+        return checkPassword(password, hashedPassword);
+    }
+
+    public boolean checkPassword(String password, String hashedPassword) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        return encoder.matches(password, hashedPassword);
     }
 
     @Override
