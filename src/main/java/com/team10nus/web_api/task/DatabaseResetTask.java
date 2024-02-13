@@ -20,7 +20,7 @@ public class DatabaseResetTask {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @Scheduled(cron = "0 57 9 * * ?") // cron expression for daily execution at 9:05 AM
+    @Scheduled(cron = "0 37 15 * * ?") // cron expression for daily execution at 9:05 AM
     public void transferAndResetData() {
         // Get current system date
         LocalDate currentDate = LocalDate.now();
@@ -31,7 +31,10 @@ public class DatabaseResetTask {
         jdbcTemplate.update("UPDATE weight_monthly_data SET " + formattedDate + " = (SELECT weight FROM fitness_metrics WHERE user_user_id = 1) WHERE id = ?", 1);
 
         // Reset the fitness_metrics table
-        jdbcTemplate.update("UPDATE fitness_metrics SET water_consumption = 0, sleep_hours = 0, weight = 0, bmi = 0, exercise_calories_burned = 0, food_calories_consumed = 0 WHERE user_user_id = ?", 1);
+        jdbcTemplate.update("UPDATE fitness_metrics SET water_consumption = 0");
+        jdbcTemplate.update("UPDATE fitness_metrics SET sleep_hours = 0");
+        jdbcTemplate.update("UPDATE fitness_metrics SET weight = 0");
+        jdbcTemplate.update("UPDATE fitness_metrics SET height = 0");
 
         // Update the updated_at column to the current timestamp
         jdbcTemplate.update("UPDATE fitness_metrics SET updated_at = NOW() WHERE user_user_id = ?", 1);
