@@ -11,16 +11,25 @@ public class FitnessMetricsRequest {
 
     private double height;
 
+    private double foodCaloriesConsumed;
+
+    private double exerciseCaloriesBurned;
+
+    private String description;
+
     // Empty Constructor
     public FitnessMetricsRequest() {}
 
     // Constructor Overloading
-    public FitnessMetricsRequest(int fitnessMetricsId, int sleepHours, int waterConsumption, double weight, double height) {
+    public FitnessMetricsRequest(int fitnessMetricsId, int sleepHours, int waterConsumption, double weight, double height, double foodCaloriesConsumed, double exerciseCaloriesBurned, String description) {
         this.fitnessMetricsId = fitnessMetricsId;
         this.sleepHours = sleepHours;
         this.waterConsumption = waterConsumption;
         this.weight = weight;
         this.height = height;
+        this.foodCaloriesConsumed = foodCaloriesConsumed;
+        this.exerciseCaloriesBurned = exerciseCaloriesBurned;
+        this.description = description;
     }
 
     // Getters & Setters
@@ -62,5 +71,29 @@ public class FitnessMetricsRequest {
 
     public void setHeight(double height) {
         this.height = height;
+    }
+
+    public double getFoodCaloriesConsumed() {
+        return foodCaloriesConsumed;
+    }
+
+    public void setFoodCaloriesConsumed(double foodCaloriesConsumed) {
+        this.foodCaloriesConsumed = foodCaloriesConsumed;
+    }
+
+    public double getExerciseCaloriesBurned() {
+        return exerciseCaloriesBurned;
+    }
+
+    public void setExerciseCaloriesBurned(double exerciseCaloriesBurned) {
+        this.exerciseCaloriesBurned = exerciseCaloriesBurned;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

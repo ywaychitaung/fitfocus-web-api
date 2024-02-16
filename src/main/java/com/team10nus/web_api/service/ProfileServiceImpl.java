@@ -24,5 +24,13 @@ public class ProfileServiceImpl implements ProfileService {
     public Profile createProfile(Profile profile) {
         return profileRepository.save(profile);
     }
+
+    @Override
+    public Profile updateProfile(Long profileId, Profile profile) {
+        Profile existingProfile = profileRepository.findById(profileId)
+                .orElseThrow(() -> new RuntimeException("Profile not found"));
+        existingProfile.setProfilePhoto(profile.getProfilePhoto());
+        return profileRepository.save(existingProfile);
+    }
 }
 

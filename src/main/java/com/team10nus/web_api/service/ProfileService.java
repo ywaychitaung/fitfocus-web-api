@@ -8,4 +8,5 @@ import org.springframework.stereotype.Service;
 public interface ProfileService {
     Profile getProfile(Long profileId);
     Profile createProfile(Profile profile);
+    Profile updateProfile(Long profileId, Profile profile);
 }

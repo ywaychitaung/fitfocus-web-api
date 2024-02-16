@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -37,7 +38,7 @@ public class User {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    // Lifecycle Hooks
+    // Relationships
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
@@ -61,6 +62,10 @@ public class User {
     @OneToOne(mappedBy = "user")
     @JsonIgnore
     public WeeklySleepData weeklySleepData;
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    public List<ActivityLog> activityLog;
 
     // Empty Constructor
     public User() {}
@@ -133,6 +138,14 @@ public class User {
 
     public void setWeeklySleepData(WeeklySleepData weeklySleepData) {
         this.weeklySleepData = weeklySleepData;
+    }
+
+    public List<ActivityLog> getActivityLog() {
+        return activityLog;
+    }
+
+    public void setActivityLog(List<ActivityLog> activityLog) {
+        this.activityLog = activityLog;
     }
 
     public LocalDateTime getCreatedAt() {

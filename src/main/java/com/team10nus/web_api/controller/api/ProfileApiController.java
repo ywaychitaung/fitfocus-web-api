@@ -29,5 +29,11 @@ public class ProfileApiController {
         Profile newProfile = profileService.createProfile(profile);
         return new ResponseEntity<>(newProfile, HttpStatus.CREATED);
     }
+
+    @PutMapping("/update/{profileId}")
+    public ResponseEntity<Profile> updateProfile(@PathVariable Long profileId, @RequestBody Profile profile) {
+        Profile updatedProfile = profileService.updateProfile(profileId, profile);
+        return ResponseEntity.ok(updatedProfile);
+    }
 }
 

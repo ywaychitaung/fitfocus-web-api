@@ -6,13 +6,12 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 @Component
 @EnableScheduling
 public class DatabaseResetTask {
-
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -20,23 +19,34 @@ public class DatabaseResetTask {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @Scheduled(cron = "0 37 15 * * ?") // cron expression for daily execution at 9:05 AM
+    @Scheduled(cron = "0 0 0 * * ?") // Scheduled to run daily at midnight
     public void transferAndResetData() {
-        // Get current system date
-        LocalDate currentDate = LocalDate.now();
-        // Format the date to match your database column format (e.g., day1, day2, etc.)
-        String formattedDate = "day" + currentDate.getDayOfMonth();
+        // Determine the day of the week to decide which column to update
+        String dayOfWeek = LocalDate.now().getDayOfWeek().toString().toLowerCase();
+        String columnToUpdate = dayOfWeek.substring(0, 1).toUpperCase() + dayOfWeek.substring(1); // Capitalize the first letter
 
-        // Update the weight_monthly_data table for the current day column with the weight from fitness_metrics
-        jdbcTemplate.update("UPDATE weight_monthly_data SET " + formattedDate + " = (SELECT weight FROM fitness_metrics WHERE user_user_id = 1) WHERE id = ?", 1);
+        // Transfer data to weekly tables for all users
+        String caloriesSql = "UPDATE weekly_calories_data wcd SET " + columnToUpdate + " = (SELECT food_calories_consumed FROM fitness_metrics fm WHERE fm.user_user_id = wcd.user_user_id)";
+        jdbcTemplate.update(caloriesSql);
 
-        // Reset the fitness_metrics table
-        jdbcTemplate.update("UPDATE fitness_metrics SET water_consumption = 0");
-        jdbcTemplate.update("UPDATE fitness_metrics SET sleep_hours = 0");
-        jdbcTemplate.update("UPDATE fitness_metrics SET weight = 0");
-        jdbcTemplate.update("UPDATE fitness_metrics SET height = 0");
+        String waterSql = "UPDATE weekly_water_consumption_data wwcd SET " + columnToUpdate + " = (SELECT water_consumption FROM fitness_metrics fm WHERE fm.user_user_id = wwcd.user_user_id)";
+        jdbcTemplate.update(waterSql);
 
-        // Update the updated_at column to the current timestamp
-        jdbcTemplate.update("UPDATE fitness_metrics SET updated_at = NOW() WHERE user_user_id = ?", 1);
+        String sleepSql = "UPDATE weekly_sleep_data wsd SET " + columnToUpdate + " = (SELECT sleep_hours FROM fitness_metrics fm WHERE fm.user_user_id = wsd.user_user_id)";
+        jdbcTemplate.update(sleepSql);
+
+        // Reset fitness_metrics table for all users
+        jdbcTemplate.update("UPDATE fitness_metrics SET water_consumption = 0, sleep_hours = 0, weight = 0, height = 0, food_calories_consumed = 0, exercise_calories_burned = 0");
+
+        // If today is Sunday, reset all weekly data for all users
+        if (LocalDate.now().getDayOfWeek() == DayOfWeek.SUNDAY) {
+            resetWeeklyDataForAllUsers();
+        }
+    }
+
+    private void resetWeeklyDataForAllUsers() {
+        jdbcTemplate.update("UPDATE weekly_calories_data SET monday = 0, tuesday = 0, wednesday = 0, thursday = 0, friday = 0, saturday = 0, sunday = 0");
+        jdbcTemplate.update("UPDATE weekly_water_consumption_data SET monday = 0, tuesday = 0, wednesday = 0, thursday = 0, friday = 0, saturday = 0, sunday = 0");
+        jdbcTemplate.update("UPDATE weekly_sleep_data SET monday = 0, tuesday = 0, wednesday = 0, thursday = 0, friday = 0, saturday = 0, sunday = 0");
     }
 }

@@ -52,4 +52,11 @@ public class AuthApiController {
             return ResponseEntity.badRequest().body("Registration failed: " + e.getMessage());
         }
     }
+
+    @PostMapping("/auth/logout")
+    public ResponseEntity<?> logout() {
+        // Return the response
+        return ResponseEntity.ok("Logged out successfully");
+    }
 }
+
