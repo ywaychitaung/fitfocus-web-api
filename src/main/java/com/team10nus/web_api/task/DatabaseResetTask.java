@@ -19,7 +19,7 @@ public class DatabaseResetTask {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @Scheduled(cron = "0 0 0 * * ?") // Scheduled to run daily at midnight
+    @Scheduled(cron = "0 59 23 * * ?") // Scheduled to run daily at midnight
     public void transferAndResetData() {
         // Determine the day of the week to decide which column to update
         String dayOfWeek = LocalDate.now().getDayOfWeek().toString().toLowerCase();
