@@ -1,4 +1,4 @@
-# Fit Focus
+# Fit Focus Web
 
 ## Screenshots
 
